@@ -11,4 +11,13 @@ export class AuthController {
         return this.authService.register(dto);
     }
 
+    @Get()
+    async findUsers(){
+        return this.authService.GetAllUsers();
+    }
+    @Post('login')
+    async login(@Body() loginDto){
+        return this.authService.Login(loginDto);
+    }
+
 }
