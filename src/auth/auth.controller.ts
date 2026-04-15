@@ -11,5 +11,4 @@ export class AuthController {
         return this.authService.register(dto);
     }
 
-   
 }
