@@ -18,7 +18,8 @@ export class AuthService {
         const user = await this.prisma.user.create({
             data: {
                 email: RegisterDto.email,
-                password: await this.HashPassword(RegisterDto.password)
+                password: await this.HashPassword(RegisterDto.password),
+                role: 'PARENT'
             }
         });
         return user;
@@ -30,4 +31,5 @@ export class AuthService {
             return hashedPassword;
 
     }
+    
 }
