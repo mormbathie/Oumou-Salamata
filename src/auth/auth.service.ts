@@ -10,8 +10,7 @@ export class AuthService {
     constructor(
         private prisma: PrismaService,
         private jwt: JwtService
-    )
-     { }
+    ) { }
     async register(RegisterDto: RegisterDto) {
         const UserExists = await this.prisma.user.findUnique({
             where: {
@@ -25,7 +24,10 @@ export class AuthService {
             data: {
                 email: RegisterDto.email,
                 password: await this.HashPassword(RegisterDto.password),
-                role: 'PARENT'
+                role: 'PARENT',
+                firstName: RegisterDto.firstName,
+                lastName: RegisterDto.lastName,
+                phone: RegisterDto.phone,
             }
         });
         return user;
@@ -37,12 +39,6 @@ export class AuthService {
         return hashedPassword;
 
     }
-
-    async GetAllUsers() {
-        const users = await this.prisma.user.findMany();
-        return users;
-    }
-
 
     async Login(loginDto: LoginDto) {
         const user = await this.prisma.user.findUnique({
@@ -61,17 +57,29 @@ export class AuthService {
             sub: user.id,
             email: user.email,
             role: user.role,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            phone: user.phone,
+
         });
 
         return {
             access_token: token,
             user: {
-                id: user.id,
+                id: user.id, 
                 email: user.email,
                 role: user.role,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                phone: user.phone
+
             },
         };
 
     }
+
+   
+
+
 
 }

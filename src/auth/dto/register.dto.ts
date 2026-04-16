@@ -7,4 +7,10 @@ export class RegisterDto {
   @IsString()
   @MinLength(6)
   password!: string;
+  @IsString()
+  firstName?: string;
+  @IsString()
+  lastName?: string;
+  @IsString()
+  phone?: string;
 }
