@@ -17,6 +17,7 @@ model User {
   firstName String? 
   lastName  String?
   phone     String?
+  classes  Class[]  @relation("TeacherClasses")
   students  Student[] @relation("ParentStudents")
 }
 
@@ -37,9 +38,18 @@ model Student {
 }
 
 model Class {
-  id       String    @id @default(cuid())
-  name     String
-  students Student[]
+  id        String    @id @default(cuid())
+  name      String
+  level     String?   // ex: 6ème, Terminale
+  section   String?   // ex: A, B
+
+  teacherId String?
+  teacher   User?     @relation("TeacherClasses", fields: [teacherId], references: [id])
+
+  students  Student[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 enum Role {
