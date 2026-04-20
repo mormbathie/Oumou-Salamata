@@ -5,6 +5,7 @@ export class CreateStudentDto {
     lastName!: string;
     @IsDateString()
     birthDate?: string;
+    gender?: "MALE" | "FEMALE"; // ✅ AJOUT
     classId?: string;
     parentId?: string;
 }
