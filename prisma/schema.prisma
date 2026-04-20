@@ -10,10 +10,46 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
+  id       String     @id @default(cuid())
   email    String  @unique
   password String
   role     Role
+  firstName String? 
+  lastName  String?
+  phone     String?
+  classes  Class[]  @relation("TeacherClasses")
+  students  Student[] @relation("ParentStudents")
+}
+
+model Student {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  birthDate DateTime?
+
+  classId   String?
+  class     Class?   @relation(fields: [classId], references: [id])
+
+  parentId  String?
+  parent    User?    @relation("ParentStudents", fields: [parentId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Class {
+  id        String    @id @default(cuid())
+  name      String
+  level     String?   // ex: 6ème, Terminale
+  section   String?   // ex: A, B
+
+  teacherId String?
+  teacher   User?     @relation("TeacherClasses", fields: [teacherId], references: [id])
+
+  students  Student[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 enum Role {
