@@ -107,10 +107,10 @@ src/
 ## 📈 Roadmap
 
 * [x] Initialisation du projet (NestJS + Docker + Prisma)
-* [ ] Système d’authentification (JWT)
-* [ ] Gestion des rôles
-* [ ] Modules élèves & classes
-* [ ] Intégration frontend (React)
+* [x] Système d’authentification (JWT)
+* [x] Gestion des rôles
+* [x] Modules élèves & classes
+* [x] Intégration frontend (React)
 * [ ] Déploiement (Cloud)
 
 ---
