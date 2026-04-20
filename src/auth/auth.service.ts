@@ -4,6 +4,7 @@ import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
+import { Role } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -66,7 +67,7 @@ export class AuthService {
         return {
             access_token: token,
             user: {
-                id: user.id, 
+                id: user.id,
                 email: user.email,
                 role: user.role,
                 firstName: user.firstName,
@@ -78,8 +79,19 @@ export class AuthService {
 
     }
 
-   
+    findAll(role?: string) {
+        const validRoles = Object.values(Role);
 
-
-
+        return this.prisma.user.findMany({
+            where: role && validRoles.includes(role as Role)
+                ? { role: role as Role }
+                : {},
+        });
+    }
 }
+
+
+
+
+
+
