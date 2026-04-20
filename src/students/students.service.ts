@@ -6,9 +6,21 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class StudentsService {
   constructor(private prisma: PrismaService) { }
-  create(createStudentDto: CreateStudentDto) {
+  create(dto: CreateStudentDto) {
     return this.prisma.student.create({
-      data: createStudentDto
+      data: {
+        firstName: dto.firstName,
+        lastName: dto.lastName,
+        birthDate: dto.birthDate,
+
+        class: dto.classId
+          ? { connect: { id: dto.classId } }
+          : undefined,
+
+        parent: dto.parentId
+          ? { connect: { id: dto.parentId } }
+          : undefined,
+      },
     });
   }
 
