@@ -1,7 +1,10 @@
+import { IsDateString } from "class-validator";
+
 export class CreateStudentDto {
     firstName!: string;
     lastName!: string;
-    birthDate?: Date;
+    @IsDateString()
+    birthDate?: string;
     classId?: string;
     parentId?: string;
 }

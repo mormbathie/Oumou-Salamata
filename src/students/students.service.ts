@@ -11,7 +11,8 @@ export class StudentsService {
       data: {
         firstName: dto.firstName,
         lastName: dto.lastName,
-        birthDate: dto.birthDate,
+        birthDate: dto.birthDate ? new Date(dto.birthDate) : null,
+
 
         class: dto.classId
           ? { connect: { id: dto.classId } }
