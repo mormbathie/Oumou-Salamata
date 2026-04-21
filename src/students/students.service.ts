@@ -26,14 +26,34 @@ export class StudentsService {
     });
   }
 
-  findAll() {
+  findAll(filters: any) {
+    const { search, classId, parentId, birthDate, id } = filters;
+
     return this.prisma.student.findMany({
+      where: {
+        AND: [
+          id ? { id } : {},
+          classId ? { classId } : {},
+          parentId ? { parentId } : {},
+          birthDate
+            ? { birthDate: new Date(birthDate) }
+            : {},
+
+          search
+            ? {
+              OR: [
+                { firstName: { contains: search, mode: "insensitive" } },
+                { lastName: { contains: search, mode: "insensitive" } },
+              ],
+            }
+            : {},
+        ],
+      },
       include: {
         class: true,
         parent: true,
       },
     });
-
   }
 
   findOne(id: string) {
@@ -47,10 +67,26 @@ export class StudentsService {
   }
 
 
-  update(id: string, data: UpdateStudentDto) {
+  // update(id: string, data: UpdateStudentDto) {
+  //   return this.prisma.student.update({
+  //     where: { id },
+  //     data,
+  //   });
+  // }
+
+  // ✏️ UPDATE (IMPORTANT PART)
+  update(id: string, dto: UpdateStudentDto) {
+    const { classId, parentId, ...rest } = dto;
+
     return this.prisma.student.update({
       where: { id },
-      data,
+      data: {
+        ...rest,
+        birthDate: dto.birthDate ? new Date(dto.birthDate) : undefined,
+
+        class: classId ? { connect: { id: classId } } : undefined,
+        parent: parentId ? { connect: { id: parentId } } : undefined,
+      },
     });
   }
 

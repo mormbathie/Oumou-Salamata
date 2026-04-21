@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { AdminGuard } from './admin.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -22,5 +23,14 @@ export class AuthController {
     findAll(@Query('role') role?: string) {
         return this.authService.findAll(role);
     }
+    @UseGuards(JwtAuthGuard,AdminGuard)
+    @Patch(':id/role')
+    updateRole(
+        @Param('id') id: string,
+        @Body('role') role: string,
+    ) {
+        return this.authService.updateRole(id, role);
+    }
+
 
 }
