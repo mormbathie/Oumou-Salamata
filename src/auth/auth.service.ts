@@ -88,6 +88,14 @@ export class AuthService {
                 : {},
         });
     }
+    updateRole(id: string, role: string) {
+        return this.prisma.user.update({
+            where: { id },
+            data: { role: role as Role },
+        });
+    }
+
+    
 }
 
 
