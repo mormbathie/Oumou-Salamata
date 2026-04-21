@@ -10,5 +10,5 @@ RUN npx prisma generate
 
 RUN npm run build
 
-# CMD ["node", "dist/main"]
+# CMD ["node", "dist/main "]
 CMD ["npm", "run", "start:prod"]
