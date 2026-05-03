@@ -7,6 +7,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UsersModule } from './users/users.module';
 import { StudentsModule } from './students/students.module';
 import { ClassesModule } from './classes/classes.module';
+import { RolesGuard } from './auth/roles.guard';
 
 @Module({
   imports: [AuthModule, PrismaModule, UsersModule, StudentsModule, ClassesModule],

@@ -25,7 +25,7 @@ export class AuthService {
             data: {
                 email: RegisterDto.email,
                 password: await this.HashPassword(RegisterDto.password),
-                role: 'PARENT',
+                role: RegisterDto.role ?? Role.PARENT,
                 firstName: RegisterDto.firstName,
                 lastName: RegisterDto.lastName,
                 phone: RegisterDto.phone,
