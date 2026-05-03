@@ -9,7 +9,7 @@ pipeline {
 
         stage('Clone') {
             steps {
-                git 'https://github.com/mormbathie/Oumou-Salamata.git'
+                git branch: 'Principale', url: 'https://github.com/mormbathie/Oumou-Salamata.git'
             }
         }
 
