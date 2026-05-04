@@ -12,7 +12,7 @@ export class StudentsController {
   constructor(private readonly studentsService: StudentsService) { }
   
   @Post()
-  @Roles('GESTIONNAIRE','ADMIN')
+  @Roles('GESTIONNAIRE','ADMIN','PARENT','TEACHER')
   create(@Body() dto: CreateStudentDto) {
     return this.studentsService.create(dto);
   }
