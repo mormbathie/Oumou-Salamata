@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DATABASE_URL = "postgresql://test:test@localhost:5432/test"
+        DATABASE_URL = "postgresql://postgres:postgres@db:5432/school_db"
     }
 
     stages {
