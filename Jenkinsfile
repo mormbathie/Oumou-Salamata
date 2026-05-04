@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:20'
+            args '--network jenkins-net'
+        }
+    }
 
     environment {
         DATABASE_URL = "postgresql://postgres:postgres@db:5432/school_db"
