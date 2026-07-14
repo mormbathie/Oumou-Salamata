@@ -12,10 +12,8 @@ RUN npx prisma generate
 
 
 RUN npm run build && \
-    echo "===== CONTENU DE /app =====" && \
-    ls -la && \
-    echo "===== CONTENU DE dist =====" && \
-    ls -R dist || true
+    echo "===== FICHIERS DIST =====" && \
+    find dist -type f
 
 # CMD ["node", "dist/main "]
 CMD ["npm", "run", "start:prod"]
